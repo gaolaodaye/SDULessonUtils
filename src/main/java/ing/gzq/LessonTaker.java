@@ -31,7 +31,7 @@ public class LessonTaker implements Runnable {
         while (true) {
             try {
                 int result = takeLesson();
-                if (result == 1 || result == 2) break;
+                if (result == 1 || result == 2  ||result == 4) break;
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -41,11 +41,11 @@ public class LessonTaker implements Runnable {
     }
 
     /*  return
-     *   0 : 选课失败 要重试
+     *   0 : 选课失败 要重试 (预期 : 课程已满)
      *   1 : 选课成功 不重试
      *   2 : 课程已选过 不重试
-     *   3 : 课程不存在 重新输入课程号与课序号
-     *   4 : 课程冲突   重新输入课程号与课序号
+     *   3 : 课程不存在 重新输入课程号与课序号   不重试
+     *   4 : 课程冲突   重新输入课程号与课序号   不重试
      *
      *   -1 : 无法处理响应 不重试
      */
@@ -70,7 +70,7 @@ public class LessonTaker implements Runnable {
             System.out.println("选课失败  caused by : " + takeLessonResult.getMsg());
             return 0;
         } else if ("success".equals(takeLessonResult.getResult())) {
-            System.out.println("选课成功 message ： " + takeLessonResult.getMsg());
+            System.err.println("选课成功 message ： " + takeLessonResult.getMsg());
             return 1;
         } else {
             System.out.println("无法处理响应 : " + responseContent + "出现此问题时请记录使用过程与开发者联系。。。");

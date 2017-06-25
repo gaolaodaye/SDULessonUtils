@@ -73,9 +73,11 @@ public class Client {
             lessonTaker[i] = new LessonTaker(client);
             lessonTaker[i].inputCouseInfoAndTest();
         }
+        System.out.println("测试完成...即将开始抢课...");
     }
 
     public void start() {
+        System.out.println("开始抢课...");
         threadPool = Executors.newFixedThreadPool(count * 3);
         for (LessonTaker taker : lessonTaker) {
             for (int i = 0; i < 3; i++) {
