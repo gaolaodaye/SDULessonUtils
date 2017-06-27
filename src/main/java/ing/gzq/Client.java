@@ -40,8 +40,8 @@ public class Client {
         System.out.println("欢迎使用山东大学抢课助手");
         while (true) {
             getUserInfo();
-            if (sendLoginRequest(usernanme, password)) break;
-            if (!Utils.checkIfContinue()) break;
+            if (sendLoginRequest(usernanme, password)) return;
+            if (!Utils.checkIfContinue()) System.exit(0);
         }
     }
 
