@@ -41,7 +41,7 @@ public class LessonTaker implements Runnable {
     }
 
     /*  return
-     *   0 : 选课失败 要重试 (预期 : 课程已满)
+     *   0 : 上课人数已满  重试
      *   1 : 选课成功 不重试
      *   2 : 课程已选过 不重试
      *   3 : 课程不存在 重新输入课程号与课序号   不重试
@@ -67,18 +67,20 @@ public class LessonTaker implements Runnable {
             if(takeLessonResult.getMsg().endsWith("冲突!")) {
                 return 4;
             }
-            System.out.println("选课失败  caused by : " + takeLessonResult.getMsg());
-            return 0;
+            return printError(responseContent);
         } else if ("success".equals(takeLessonResult.getResult())) {
+            if(takeLessonResult.getMsg().endsWith("上课人数已满!<br/>")){
+                System.out.println("选课失败 message : "+ takeLessonResult.getMsg());
+                return 0;
+            }
             System.err.println("选课成功 message ： " + takeLessonResult.getMsg());
             return 1;
         } else {
-            System.out.println("无法处理响应 : " + responseContent + "出现此问题时请记录使用过程与开发者联系。。。");
-            System.out.println("系统退出");
-            System.exit(1);
-            return -1;
+            return printError(responseContent);
         }
     }
+
+
 
     //输入并测试课程号和序列号是否正确
     public void inputCouseInfoAndTest() throws IOException, URISyntaxException {
@@ -104,5 +106,12 @@ public class LessonTaker implements Runnable {
         courseId = Utils.getReader().readLine().trim();
         System.out.print("请输入课序号:");
         courseIndex = Utils.getReader().readLine().trim();
+    }
+
+    private int printError(String responseContent) {
+        System.out.println("无法处理响应 : " + responseContent + "出现此问题时请记录使用过程与开发者联系。。。");
+        System.out.println("系统退出");
+        System.exit(1);
+        return -1;
     }
 }
