@@ -22,11 +22,11 @@ import java.util.Map;
 public class HttpClientService {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpClientService.class);
-    private static DefaultHttpClient client = new DefaultHttpClient();
+    private DefaultHttpClient client = new DefaultHttpClient();
 
 
-    public static HttpResponse getHttpRequest(String url, List<NameValuePair> parameters,
-                                              User user) {
+    public HttpResponse getHttpRequest(String url, List<NameValuePair> parameters,
+                                       User user) {
         // 创建GET请求
         try {
             logger.debug("------------------------------------------------------------------------");
@@ -79,8 +79,8 @@ public class HttpClientService {
      * @param user
      * @return
      */
-    public static HttpResponse postHttpRequest(String url, List<NameValuePair> parameters,
-                                               User user) {
+    public HttpResponse postHttpRequest(String url, List<NameValuePair> parameters,
+                                        User user) {
         try {
             logger.debug("------------------------------------------------------------------------");
             logger.debug("POST URL: " + url);
@@ -118,7 +118,7 @@ public class HttpClientService {
     }
 
 
-    private static String cookieMapToString(Map<String, String> cookieData) {
+    private String cookieMapToString(Map<String, String> cookieData) {
 
         boolean first = true;
         StringBuilder cookie = new StringBuilder();

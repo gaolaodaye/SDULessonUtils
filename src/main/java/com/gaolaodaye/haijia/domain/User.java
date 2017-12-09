@@ -8,6 +8,7 @@ public class User {
     private String password;
     private Map<String, String> cookieMap;
     private String xxzh;
+    private Map<String,String> mapOption;
 
     public User() {
 
@@ -50,6 +51,14 @@ public class User {
         this.xxzh = xxzh;
     }
 
+    public Map<String, String> getMapOption() {
+        return mapOption;
+    }
+
+    public void setMapOption(Map<String, String> mapOption) {
+        this.mapOption = mapOption;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -57,6 +66,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", cookieMap=" + cookieMap +
                 ", xxzh='" + xxzh + '\'' +
+                ", mapOption=" + mapOption +
                 '}';
     }
 }
