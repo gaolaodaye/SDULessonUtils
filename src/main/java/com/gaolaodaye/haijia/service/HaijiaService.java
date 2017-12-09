@@ -36,14 +36,13 @@ public class HaijiaService implements Runnable {
 
     }
 
-    public HaijiaService(String userName, String password) {
-        user = new User(userName, password);
+    public HaijiaService(String userName, String password, String cookie) {
+        user = new User(userName, password, cookie);
     }
 
     public void login() {
         logger.debug("func=login user={}", user);
         user.setXxzh(null);
-        user.setCookieMap(null);
         List<NameValuePair> parameters = new ArrayList<>();
         parameters.add(new BasicNameValuePair("username", user.getUserName()));
         parameters.add(new BasicNameValuePair("passwordmd5", Utils.getMd5(user.getPassword())));
@@ -224,7 +223,7 @@ public class HaijiaService implements Runnable {
         while (true) {
             try {
                 this.qiangPiao();
-                int sleepTime = (int) (Math.random() * 500);
+                int sleepTime = (int) (Math.random() * 200) + 100;
                 Thread.sleep(sleepTime);
                 logger.debug("Thread {} sleep {} ms", user.getUserName(), sleepTime);
             } catch (UserException e) {
@@ -235,6 +234,7 @@ public class HaijiaService implements Runnable {
                 }
 
             } catch (Exception e) {
+                logger.error("user " + user.getUserName(), e);
                 return;
             }
         }

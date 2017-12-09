@@ -6,17 +6,17 @@ public class User {
 
     private String userName;
     private String password;
-    private Map<String, String> cookieMap;
+    private String cookie;
     private String xxzh;
-    private Map<String,String> mapOption;
 
     public User() {
 
     }
 
-    public User(String userName, String password) {
+    public User(String userName, String password, String cookie) {
         this.userName = userName;
         this.password = password;
+        this.cookie = cookie;
     }
 
     public String getUserName() {
@@ -35,13 +35,6 @@ public class User {
         this.password = password;
     }
 
-    public Map<String, String> getCookieMap() {
-        return cookieMap;
-    }
-
-    public void setCookieMap(Map<String, String> cookieMap) {
-        this.cookieMap = cookieMap;
-    }
 
     public String getXxzh() {
         return xxzh;
@@ -51,12 +44,12 @@ public class User {
         this.xxzh = xxzh;
     }
 
-    public Map<String, String> getMapOption() {
-        return mapOption;
+    public String getCookie() {
+        return cookie;
     }
 
-    public void setMapOption(Map<String, String> mapOption) {
-        this.mapOption = mapOption;
+    public void setCookie(String cookie) {
+        this.cookie = cookie;
     }
 
     @Override
@@ -64,9 +57,8 @@ public class User {
         return "User{" +
                 "userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
-                ", cookieMap=" + cookieMap +
+                ", cookie='" + cookie + '\'' +
                 ", xxzh='" + xxzh + '\'' +
-                ", mapOption=" + mapOption +
                 '}';
     }
 }

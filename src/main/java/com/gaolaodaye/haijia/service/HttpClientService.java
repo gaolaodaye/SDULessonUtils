@@ -43,9 +43,7 @@ public class HttpClientService {
 
             HttpGet get = new HttpGet(url);
             get.setHeader(StringConstant.USER_AGENT_NAME, StringConstant.USER_AGENT_VALUE);
-            if (user.getCookieMap() != null) {
-                get.setHeader("Cookie", cookieMapToString(user.getCookieMap()));
-            }
+            get.setHeader("Cookie", user.getCookie());
 
             if (logger.isDebugEnabled()) {
 
@@ -87,8 +85,8 @@ public class HttpClientService {
 
             HttpPost post = new HttpPost(url);
             post.setHeader(StringConstant.USER_AGENT_NAME, StringConstant.USER_AGENT_VALUE);
-            if (user.getCookieMap() != null) {
-                post.setHeader("Cookie", cookieMapToString(user.getCookieMap()));
+            if (user.getCookie() != null) {
+                post.setHeader("Cookie", user.getCookie());
             }
             if (parameters != null) {
                 UrlEncodedFormEntity uef = new UrlEncodedFormEntity(parameters, HTTP.UTF_8);
@@ -105,11 +103,6 @@ public class HttpClientService {
                 }
 
             }
-            if (user.getCookieMap() == null && client.getCookieStore().getCookies().size() != 0) {
-                user.setCookieMap(new HashMap<>());
-                client.getCookieStore().getCookies().forEach(cookie -> user.getCookieMap().put(cookie.getName(), cookie.getValue()));
-                logger.debug("cookieMap={}", user.getCookieMap());
-            }
             logger.debug("***********************************************************************");
             return response;
         } catch (Exception e) {
@@ -123,6 +116,9 @@ public class HttpClientService {
         boolean first = true;
         StringBuilder cookie = new StringBuilder();
         for (Map.Entry<String, String> me : cookieData.entrySet()) {
+            if ("Webapi_LoginOn_client".equals(me.getKey())) {
+                continue;
+            }
             if (first) {
                 first = false;
             } else {
