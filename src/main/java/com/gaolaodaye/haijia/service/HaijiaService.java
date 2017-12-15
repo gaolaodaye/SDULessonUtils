@@ -186,6 +186,9 @@ public class HaijiaService implements Runnable {
                 if ("周一".equals(yyrqDto.getDisplayWeek())) {
                     return;
                 }
+                if("2001".equals(xnsdDto.getXnsd())){
+                    continue;;
+                }
                 Km2ResultDto km2ResultDto1 = getKm2Detail(getYyrq(yyrqDto.getYyrq()), xnsdDto.getXnsd());
                 List<LessonDto> lessonDtos = km2ResultDto1.getResult();
                 if (lessonDtos == null || lessonDtos.size() == 0) {
